@@ -20,10 +20,25 @@ DISTFILES += \
     android/res/values/libs.xml \
     android/build.gradle \
     android/gradle/wrapper/gradle-wrapper.properties \
-    android/gradlew.bat
+    android/gradlew.bat \
+    android/AndroidManifest.xml \
+    android/gradle/wrapper/gradle-wrapper.jar \
+    android/gradlew \
+    android/res/values/libs.xml \
+    android/build.gradle \
+    android/gradle/wrapper/gradle-wrapper.properties \
+    android/gradlew.bat \
+    qml/pages/Base.qml \
+    qml/pages/AboutPage.qml
 
 ANDROID_PACKAGE_SOURCE_DIR = $$PWD/android
 
 HEADERS += \
     requestplan.h
+
+OTHER_FILES += qml/main.qml \
+    qml/pages/Plan.qml \
+    qml/pages/Ubersicht.qml \
+    qml/pages/LoginPage.qml \
+    qml/pages/Settings.qml \
 

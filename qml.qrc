@@ -3,5 +3,8 @@
         <file>qml/main.qml</file>
         <file>qml/pages/Plan.qml</file>
         <file>qml/pages/Ubersicht.qml</file>
+        <file>qml/pages/LoginPage.qml</file>
+        <file>qml/pages/Settings.qml</file>
+        <file>qml/pages/AboutPage.qml</file>
     </qresource>
 </RCC>

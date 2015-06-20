@@ -7,43 +7,33 @@ import QtQuick.Layouts 1.1
 
 Page {
     property bool loading
-    property bool verifiedFailed
+    property bool reload
     id: page
     title: "Pläne"
+    actionBar.maxActionCount: 2
     actions: [
         Action {
             iconName: "navigation/refresh"
-            name: "Refresh"
+            name: "Neu Laden"
             enabled: true
             onTriggered: {
                 if(settingStorage.verified == true){
-                    reloadDates()
+                    reload = true
                 }
             }
+        },
+        Action {
+            iconName: "action/settings"
+            name: "Einstellungen"
+            onTriggered: pageStack.push(Qt.resolvedUrl("Settings.qml"))
+        },
+        Action {
+            iconName: "action/code"
+            name: "Über"
+            onTriggered: pageStack.push(Qt.resolvedUrl("AboutPage.qml"))
         }
     ]
-    Dialog {
-        id: settings
-        title: page.verifiedFailed == false ? "Login" : "Try Again"
-        ColumnLayout {
-            anchors.horizontalCenter: parent.horizontalCenter
-            TextField{
-                id: usernameInput
-                placeholderText: "Username"
-                inputMethodHints: Qt.ImhNoAutoUppercase | Qt.ImhNoPredictiveText | Qt.ImhEmailCharactersOnly
-                //anchors.horizontalCenter:parent.horizontalCenter
-            }
-            TextField{
-                id: passwordInput
-                placeholderText: "Passwort"
-                //anchors.horizontalCenter:parent.horizontalCenter
-                echoMode: TextInput.Password
-            }
-        }
-        onAccepted: {
-            plan.verifyUser(usernameInput.text, passwordInput.text)
-        }
-    }
+
 
     ProgressCircle{
         id: mainCircle
@@ -73,20 +63,18 @@ Page {
         onLoadingDates:{
             page.loading = true
         }
-        onUserIsVerified:{
-            getAllDates()
-            settingStorage.verified = true
-        }
-
-        onVerifiedFailed:{
-            page.verifiedFailed = true
-            settings.show()
+    }
+     onReloadChanged:{
+        if(reload === true){
+            mainList.model.clear()
+            plan.getAllDates()
+            reload = false
         }
     }
-    function reloadDates(){
-        mainList.model.clear()
-        plan.getAllDates()
-    }
 
-    Component.onCompleted: (settingStorage.verified == true) ? reloadDates() : settings.show()
+    Component.onCompleted: {
+        if(settingStorage.verified == true){
+            reload = true
+        }
+    }
 }

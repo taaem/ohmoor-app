@@ -9,7 +9,7 @@ RequestPlan::RequestPlan(QObject *parent) : QObject(parent)
 void RequestPlan::getAllDates()
 {
     QNetworkRequest req;
-    req.setUrl(QUrl("https://iserv-taaem.rhcloud.com/dates"));
+    req.setUrl(QUrl("https://pacific-brook-2516.herokuapp.com/dates"));
     req.setRawHeader(QByteArray("X-APIKey"), *apiKey);
     connect(manager, SIGNAL(finished(QNetworkReply*)), this, SLOT(parseDates(QNetworkReply*)));
     manager->get(req);
@@ -18,12 +18,13 @@ void RequestPlan::getAllDates()
 
 void RequestPlan::getPlan(QString name)
 {
+    QNetworkAccessManager *aManager = new QNetworkAccessManager;
     QNetworkRequest req;
-    QUrl url = "https://iserv-taaem.rhcloud.com/plan/" + name;
+    QUrl url = "https://pacific-brook-2516.herokuapp.com/plan/" + name;
     req.setUrl(url);
     req.setRawHeader(QByteArray("X-APIKey"), *apiKey);
-    connect(manager, SIGNAL(finished(QNetworkReply*)), this, SLOT(parsePlan(QNetworkReply*)));
-    manager->get(req);
+    connect(aManager, SIGNAL(finished(QNetworkReply*)), this, SLOT(parsePlan(QNetworkReply*)));
+    aManager->get(req);
     emit loadingPlan();
 }
 
@@ -38,7 +39,8 @@ void RequestPlan::verifyUser(QString uName, QString uPwd)
     postData.append("login_pwd=" + uPwd + "");
 
     connect(vManager, SIGNAL(finished(QNetworkReply*)), this, SLOT(authFinished(QNetworkReply*)));
-    vManager->post(req, postData);
+    QNetworkReply *reply = vManager->post(req, postData);
+    reply->ignoreSslErrors();
 }
 
 void RequestPlan::parseDates(QNetworkReply *reply)
@@ -60,6 +62,7 @@ void RequestPlan::parsePlan(QNetworkReply *reply)
     QJsonDocument doc = QJsonDocument::fromJson(strReply.toUtf8());
     QJsonObject docObj = doc.object();
     emit gotPlanDate(docObj["date"].toString());
+    emit gotMsg(docObj["msg"].toArray().toVariantList());
     QJsonArray allItems = docObj["items"].toArray();
     foreach (QJsonValue item, allItems) {
         QVariantMap itemList = item.toObject().toVariantMap();

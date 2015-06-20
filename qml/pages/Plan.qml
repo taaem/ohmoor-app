@@ -10,61 +10,30 @@ import com.taaem.vertretungsplan 1.0
 Page{
     property bool loading
     property string dateHref
-    property string date
+    property string dateTitle
+    property bool reload
+    property ListModel msgModel: ListModel{}
 
     id: page
-    title: date
+    title: dateTitle
+    actionBar.maxActionCount: 1
     actions: [
         Action {
             iconName: "navigation/refresh"
-            name: "Refresh"
+            name: "Neu Laden"
             enabled: true
             onTriggered: {
-                reload()
+                reload = true
             }
         },
         Action {
             iconName: "action/settings"
-            name: "Settings"
-            onTriggered: settings.show()
-
+            name: "Einstellungen"
+            onTriggered: pageStack.push(Qt.resolvedUrl("Settings.qml"))
         }
 
     ]
-    Dialog {
-        id: settings
-        title: "Einstellungen"
-        RowLayout {
-            anchors.horizontalCenter: parent.horizontalCenter
-            MenuField {
-                id: klassenSelector
-                //Layout.alignment: Qt.AlignVCenter
-                model: ["Alle", "5", "6", "7", "8", "9", "10", "11", "12"]
-                //selectedText: appWindow.klasse
-                maxVisibleItems: 9
-            }
-            MenuField {
-                id: letterSelector
-                Layout.alignment: Qt.AlignVCenter
-                model: ["Alle", "a", "b", "c", "d", "e", "f"]
-                maxVisibleItems: 7
-                //selectedText: appWindow.letter
-            }
-        }
-        onAccepted: {
-            if(klassenSelector.selectedText != "Alle") {
-                settingStorage.klasse = "/" + klassenSelector.selectedText
-            }else{
-                settingStorage.klasse = ""
-            }
-            if(letterSelector.selectedText != "Alle"){
-                 settingStorage.letter = "/" + letterSelector.selectedText
-            }else{
-                 settingStorage.letter = ""
-            }
-            reload()
-        }
-    }
+
 
     ProgressCircle{
         id: mainCircle
@@ -81,14 +50,41 @@ Page{
         anchors.fill: parent
         id: mainList
         clip: true
-        model: ListModel{}
-        spacing: 10
-        delegate:Card{
-            height: Units.dp(150)
+
+        header: Item{
+            height: childrenRect.height + Units.dp(20)
+            width: parent.width
+            Card{
+            height: col.height + Units.dp(20)
             //anchors.topMargin: 100
             width: parent.width/1.5
             anchors.horizontalCenter: parent.horizontalCenter
             Column{
+                id: col
+                anchors.verticalCenter: parent.verticalCenter
+                anchors.left: parent.left
+                anchors.leftMargin: Units.dp(20)
+                Repeater{
+                    id: repeaterHeader
+                    model: msgModel
+                    Label{
+                        text: modelData;
+                        font.pixelSize: Units.dp(15)
+                    }
+                }
+            }
+        }
+        }
+
+        model: ListModel{}
+        spacing: Units.dp(5)
+        delegate:Card{
+            height: column.height + Units.dp(20)
+            //anchors.topMargin: 100
+            width: parent.width/1.5
+            anchors.horizontalCenter: parent.horizontalCenter
+            Column{
+                id: column
                 anchors.verticalCenter: parent.verticalCenter
                 anchors.left: parent.left
                 anchors.leftMargin: Units.dp(20)
@@ -105,7 +101,7 @@ Page{
                 }
 
                 Label{
-                    text: "<b>Vertreter</b> " + vertreter;
+                    text: "<b>Vertreter:</b> " + vertreter;
                     font.pixelSize: Units.dp(parent.fontSize)
                 }
                 Label{
@@ -136,17 +132,25 @@ Page{
             page.loading = true
         }
         onGotPlanDate: {
-            page.date = date;
+            page.dateTitle = date;
+        }
+        onGotMsg: {
+            page.msgModel.clear();
+            for(var i in msg){
+                page.msgModel.append({ modelData: msg[i]})
+            }
         }
     }
 
 
     onDateHrefChanged: {
-        reload(appWindow)
+        reload = true
     }
-
-    function reload(){
-        mainList.model.clear()
-        plan.getPlan(dateHref + settingStorage.klasse + settingStorage.letter)
-    }
+    onReloadChanged:{
+       if(reload === true){
+           mainList.model.clear()
+           plan.getPlan(dateHref + settingStorage.klasse + settingStorage.letter)
+           reload = false
+       }
+   }
 }

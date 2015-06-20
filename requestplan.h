@@ -19,7 +19,6 @@ public:
     Q_INVOKABLE void getPlan(QString name);
     Q_INVOKABLE void verifyUser(QString uName, QString uPwd);
 
-
 signals:
     void datesReceived(QVariantMap date);
     void planReceived(QVariantMap item);
@@ -28,6 +27,7 @@ signals:
     void userIsVerified();
     void verifiedFailed();
     void gotPlanDate(QVariant date);
+    void gotMsg(QVariantList msg);
 
 public slots:
     void parseDates(QNetworkReply *reply);

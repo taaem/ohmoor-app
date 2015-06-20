@@ -2,6 +2,7 @@ import QtQuick 2.4
 import Material 0.1
 import "pages"
 import Qt.labs.settings 1.0
+import com.taaem.vertretungsplan 1.0
 
 
 ApplicationWindow {
@@ -23,7 +24,5 @@ ApplicationWindow {
         property string letter: ""
         property bool verified: false
     }
-    initialPage: Component{ Ubersicht{}}
-
-
+    initialPage: (settingStorage.verified)? Qt.resolvedUrl("pages/Ubersicht.qml") : Qt.resolvedUrl("pages/LoginPage.qml")
 }
