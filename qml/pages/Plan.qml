@@ -69,6 +69,7 @@ Page{
                     model: msgModel
                     Label{
                         text: modelData;
+                        wrapMode: Text.Wrap
                         font.pixelSize: Units.dp(15)
                     }
                 }

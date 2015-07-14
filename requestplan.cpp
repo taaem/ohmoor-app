@@ -46,12 +46,19 @@ void RequestPlan::verifyUser(QString uName, QString uPwd)
 void RequestPlan::parseDates(QNetworkReply *reply)
 {
     QString strReply= (QString)reply->readAll();
-    QJsonDocument doc = QJsonDocument::fromJson(strReply.toUtf8());
-    QJsonArray allDates = doc.array();
-    foreach (QJsonValue date, allDates) {
-        QJsonObject dateObj = date.toObject();
-        QVariantMap dateMap = dateObj.toVariantMap();
-        emit datesReceived(dateMap);
+    if(strReply == "[]"){
+
+        emit noPlansAvailable();
+
+    }else{
+        QJsonDocument doc = QJsonDocument::fromJson(strReply.toUtf8());
+        QJsonArray allDates = doc.array();
+
+        foreach (QJsonValue date, allDates) {
+            QJsonObject dateObj = date.toObject();
+            QVariantMap dateMap = dateObj.toVariantMap();
+            emit datesReceived(dateMap);
+        }
     }
     reply->deleteLater();
 }

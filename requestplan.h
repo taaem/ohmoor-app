@@ -20,6 +20,7 @@ public:
     Q_INVOKABLE void verifyUser(QString uName, QString uPwd);
 
 signals:
+    void noPlansAvailable();
     void datesReceived(QVariantMap date);
     void planReceived(QVariantMap item);
     void loadingDates();

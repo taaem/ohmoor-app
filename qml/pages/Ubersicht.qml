@@ -8,6 +8,7 @@ import QtQuick.Layouts 1.1
 Page {
     property bool loading
     property bool reload
+    property bool noPlanAvailable
     id: page
     title: "Pläne"
     actionBar.maxActionCount: 2
@@ -45,6 +46,14 @@ Page {
         anchors.fill: parent
         id: mainList
         clip: true
+        header: Label{
+            id: headerLabel
+            anchors.horizontalCenter: parent.horizontalCenter
+            text: (page.noPlanAvailable) ? "Keine Vertretungspläne vorhanden!" : ""
+            wrapMode: Text.Wrap
+            font.pixelSize: Units.dp(15)
+        }
+
         model: ListModel{}
         spacing: 10
         delegate: ListItem.Standard{
@@ -56,6 +65,11 @@ Page {
     }
     Vertretungsplan{
         id: plan
+        onNoPlansAvailable:{
+            page.noPlanAvailable = true
+            page.loading = false
+        }
+
         onDatesReceived: {
             mainList.model.append(date)
             page.loading = false
