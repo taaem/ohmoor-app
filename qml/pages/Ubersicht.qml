@@ -1,9 +1,7 @@
 import QtQuick 2.3
 import Material 0.1
-import Material.Extras 0.1
 import Material.ListItems 0.1 as ListItem
 import com.taaem.vertretungsplan 1.0
-import QtQuick.Layouts 1.1
 
 Page {
     property bool loading
