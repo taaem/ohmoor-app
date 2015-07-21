@@ -1,3 +1,6 @@
+---
+title: Welcome to Your New, Shiny Blog!
+---
 <!DOCTYPE html>
 <html lang="en-us">
   <head>
@@ -23,7 +26,13 @@
 <a id="vertretungsplan-app" class="anchor" href="#vertretungsplan-app" aria-hidden="true"><span class="octicon octicon-link"></span></a>Vertretungsplan App</h2>
 
 <p>Dies ist eine App für Android, geschrieben in C++ mit dem Qt Framework um den Vertretungsplan des Gymnasium Ohmoors abzurufen.</p>
-<p>{% site.github %}</p>
+<p>
+{{ site.github }}
+{% for release in site.github.releases %}
+    YEES
+    * [{{ release }}]
+{% endfor %}
+</p>
 <h3>
 <a id="todo" class="anchor" href="#todo" aria-hidden="true"><span class="octicon octicon-link"></span></a>TODO</h3>
 
