@@ -9,6 +9,7 @@
 #include <QJsonArray>
 #include <QJsonObject>
 #include <QJsonValue>
+#include "privatekeys.h"
 
 class RequestPlan : public QObject
 {

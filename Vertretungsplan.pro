@@ -33,7 +33,8 @@ DISTFILES += \
 ANDROID_PACKAGE_SOURCE_DIR = $$PWD/android
 
 HEADERS += \
-    requestplan.h
+    requestplan.h \
+    privatekeys.h
 
 OTHER_FILES += qml/main.qml \
     qml/pages/Plan.qml \

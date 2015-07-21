@@ -2,7 +2,7 @@
 
 RequestPlan::RequestPlan(QObject *parent) : QObject(parent)
 {
-    apiKey = new QByteArray("a173007dff88f52a8f1837e275930abf");
+    apiKey = new QByteArray(aKey);
     manager = new QNetworkAccessManager();
 }
 
@@ -10,6 +10,7 @@ void RequestPlan::getAllDates()
 {
     QNetworkRequest req;
     req.setUrl(QUrl("https://mar-eu-1-1lcyazw4.qtcloudapp.com/dates"));
+    //req.setUrl(QUrl("https://iserv-taaem.rhcloud.com/dates"));
     req.setRawHeader(QByteArray("X-APIKey"), *apiKey);
     connect(manager, SIGNAL(finished(QNetworkReply*)), this, SLOT(parseDates(QNetworkReply*)));
     manager->get(req);
