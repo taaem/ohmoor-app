@@ -29,11 +29,12 @@ title: Welcome to Your New, Shiny Blog!
 <h3> Releases </h3>
 {% for release in site.github.releases %}
     <h4> 
-        [{{ release.tag_name }}]
+        {{ release.tag_name }}
     </h4>
     <p>
-        [{{ release.name }}]<br> 
-        <a href="[{{ release.assets[0].browser_download_url }}]">Download</a>
+        {{ release.name }} <br> 
+        {{ release.body }} <br>
+        <a href="{{ release.assets[0].browser_download_url }}">Download</a>
     </p>
 {% endfor %}
 </p>
