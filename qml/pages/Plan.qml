@@ -61,11 +61,13 @@ Page{
                 anchors.verticalCenter: parent.verticalCenter
                 anchors.left: parent.left
                 anchors.leftMargin: Units.dp(20)
+                width: parent.width
                 Repeater{
                     id: repeaterHeader
                     model: msgModel
                     Label{
                         text: modelData;
+                        width: parent.width
                         wrapMode: Text.Wrap
                         font.pixelSize: Units.dp(15)
                     }
@@ -86,34 +88,47 @@ Page{
                 anchors.verticalCenter: parent.verticalCenter
                 anchors.left: parent.left
                 anchors.leftMargin: Units.dp(20)
+                width: parent.width
                 property int fontSize: 15
                 property string fontFamily: ""
                 Label{
                     text: "<b>Klasse:</b> " + klasse;
+                    width: parent.width
+                    wrapMode: Text.Wrap
                     font.pixelSize: Units.dp(parent.fontSize)
                 }
 
                 Label{
                     text: "<b>Stunde:</b> " + stunde;
+                    width: parent.width
+                    wrapMode: Text.Wrap
                     font.pixelSize: Units.dp(parent.fontSize)
                 }
 
                 Label{
                     text: "<b>Vertreter:</b> " + vertreter;
+                    width: parent.width
+                    wrapMode: Text.Wrap
                     font.pixelSize: Units.dp(parent.fontSize)
                 }
                 Label{
                     text: "<b>Fach:</b> " + fach;
+                    width: parent.width
+                    wrapMode: Text.Wrap
                     font.pixelSize: Units.dp(parent.fontSize)
                 }
 
                 Label{
                     text: "<b>Lehrer:</b> " + lehrer;
+                    width: parent.width
+                    wrapMode: Text.Wrap
                     font.pixelSize: Units.dp(parent.fontSize)
                 }
 
                 Label{
                     text: "<b>Raum:</b> " + raum;
+                    width: parent.width
+                    wrapMode: Text.Wrap
                     font.pixelSize: Units.dp(parent.fontSize)
                 }
             }
