@@ -11,6 +11,7 @@ ApplicationWindow {
     width: 640
     height: 480
     visible: true
+    property string version: "v0.7.0"
 
     theme {
             primaryColor: Palette.colors["red"]["500"]
