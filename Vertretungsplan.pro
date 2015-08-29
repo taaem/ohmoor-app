@@ -3,7 +3,8 @@ TEMPLATE = app
 QT += qml quick widgets svg xml
 
 SOURCES += main.cpp \
-    requestplan.cpp
+    requestplan.cpp \
+    appupdater.cpp
 
 RESOURCES += qml.qrc
 
@@ -34,7 +35,8 @@ ANDROID_PACKAGE_SOURCE_DIR = $$PWD/android
 
 HEADERS += \
     requestplan.h \
-    privatekeys.h
+    privatekeys.h \
+    appupdater.h
 
 OTHER_FILES += qml/main.qml \
     qml/pages/Plan.qml \

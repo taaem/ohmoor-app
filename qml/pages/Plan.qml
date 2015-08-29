@@ -61,7 +61,9 @@ Page{
                 anchors.verticalCenter: parent.verticalCenter
                 anchors.left: parent.left
                 anchors.leftMargin: Units.dp(20)
-                width: parent.width
+                anchors.right: parent.right
+                anchors.rightMargin: Units.dp(20)
+                //width: parent.width
                 Repeater{
                     id: repeaterHeader
                     model: msgModel
