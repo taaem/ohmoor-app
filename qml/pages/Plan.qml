@@ -54,7 +54,7 @@ Page{
             Card{
             height: col.height + Units.dp(20)
             //anchors.topMargin: 100
-            width: parent.width/1.5
+            width: parent.width/1.2
             anchors.horizontalCenter: parent.horizontalCenter
             Column{
                 id: col
@@ -83,7 +83,7 @@ Page{
         delegate:Card{
             height: column.height + Units.dp(20)
             //anchors.topMargin: 100
-            width: parent.width/1.5
+            width: parent.width/1.2
             anchors.horizontalCenter: parent.horizontalCenter
             Column{
                 id: column
@@ -134,7 +134,7 @@ Page{
                     font.pixelSize: Units.dp(parent.fontSize)
                 }
             }
-            ListItem.Divider{}
+            //ListItem.Divider{}
         }
     }
     Vertretungsplan{
