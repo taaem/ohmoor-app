@@ -3,3 +3,4 @@
 *.o
 *.swp
 privatekeys.h
+moc_*

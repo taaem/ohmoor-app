@@ -4,7 +4,6 @@ import "pages"
 import Qt.labs.settings 1.0
 import com.taaem.vertretungsplan 1.0
 
-
 ApplicationWindow {
     title: "Vertretungsplan"
     id: appWindow
