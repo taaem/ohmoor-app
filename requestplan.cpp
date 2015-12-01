@@ -9,7 +9,7 @@ RequestPlan::RequestPlan(QObject *parent) : QObject(parent)
 void RequestPlan::getAllDates()
 {
     QNetworkRequest req;
-    req.setUrl(QUrl("https://mar-eu-1-1lcyazw4.qtcloudapp.com/dates"));
+    req.setUrl(QUrl("https://mar-eu-1-ghb1rw62.qtcloudapp.com/dates"));
     //req.setUrl(QUrl("https://iserv-taaem.rhcloud.com/dates"));
     req.setRawHeader(QByteArray("X-APIKey"), *apiKey);
     connect(manager, SIGNAL(finished(QNetworkReply*)), this, SLOT(parseDates(QNetworkReply*)));
@@ -21,7 +21,7 @@ void RequestPlan::getPlan(QString name)
 {
     QNetworkAccessManager *aManager = new QNetworkAccessManager;
     QNetworkRequest req;
-    QUrl url = "https://mar-eu-1-1lcyazw4.qtcloudapp.com/plan/" + name;
+    QUrl url = "https://mar-eu-1-ghb1rw62.qtcloudapp.com/plan/" + name;
     req.setUrl(url);
     req.setRawHeader(QByteArray("X-APIKey"), *apiKey);
     connect(aManager, SIGNAL(finished(QNetworkReply*)), this, SLOT(parsePlan(QNetworkReply*)));
